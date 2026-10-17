@@ -13,8 +13,9 @@ int main(){
     cin >> x;
 
     int matriks[101][101];
-    int matriks_temp[n][m];
+    int matriks_temp[101][101];
     string pilihan;
+    int ada = 0;
     int temp = 0;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
@@ -22,7 +23,7 @@ int main(){
             matriks_temp[i][j] = matriks[i][j];
         }
     }
-    for(int i = 0; i < x; i++){
+    for(int k = 0; k < x; k++){
         cin >> pilihan; 
         if(pilihan == "_"){
             for(int i = 0; i < n / 2; i++){
@@ -30,6 +31,11 @@ int main(){
                     temp = matriks[i][j];
                     matriks[i][j] = matriks[(n - 1) - i][j];
                     matriks[(n - 1) - i][j] = temp;
+                }
+            }
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    matriks_temp[i][j] = matriks[i][j];
                 }
             }
         }
@@ -41,6 +47,11 @@ int main(){
                     matriks[i][(m - 1) - j] = temp;
                 }
             }
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    matriks_temp[i][j] = matriks[i][j];
+                }
+            }
         }
         else if(pilihan == "180"){
             for(int i = 0; i < n; i++){
@@ -48,19 +59,39 @@ int main(){
                     matriks[i][j] = matriks_temp[(n - 1) - i][(m - 1) - j];
                 }
             }
-        }
-        else if(pilihan == "270"){
             for(int i = 0; i < n; i++){
                 for(int j = 0; j < m; j++){
-                    matriks[i][j] = matriks_temp[j][(n - 1) - i];
+                    matriks_temp[i][j] = matriks[i][j];
                 }
             }
-
+        }
+        else if(pilihan == "270"){
+            for(int i = m - 1; i >= 0; i--){
+                for(int j = 0; j < n; j++){
+                    matriks[(m - 1) - i][j] = matriks_temp[j][i];
+                }
+            }
+            int simpan = n;
+            n = m;
+            m = simpan;
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    matriks_temp[i][j] = matriks[i][j];
+                }
+            }
         }
         else if(pilihan == "90"){
             for(int i = 0; i < m; i++){
-                for(int j = 0; j < n; j++){
-                    matriks[i][j] = matriks_temp[j][i];
+                for(int j = n - 1; j >= 0; j--){
+                    matriks[i][(n - 1) - j] = matriks_temp[j][i];
+                }
+            }
+            int simpan = n;
+            n = m;
+            m = simpan;
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    matriks_temp[i][j] = matriks[i][j];
                 }
             }
         }
@@ -71,6 +102,7 @@ int main(){
         }
         cout << endl;
     }
+
 
     return 0;
 }
